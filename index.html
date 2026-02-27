@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSN Code Finder & GST Rate Calculator – India Tool</title>
+<meta name="description" content="Find accurate HSN codes and GST rates for your products instantly. Free Indian HSN code lookup with GST tax calculations for traders, MSMEs, and CAs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f0f4ff;--bg2:#e4eaf8;--white:#fff;--border:#d4daf0;--text:#1a2040;--muted:#6b7599;--light:#9aa3c2;--c0:#64748b;--c0bg:#f1f5f9;--c0bdr:#cbd5e1;--c5:#16a34a;--c5bg:#f0fdf4;--c5bdr:#86efac;--c12:#0284c7;--c12bg:#f0f9ff;--c12bdr:#7dd3fc;--c18:#ea580c;--c18bg:#fff7ed;--c18bdr:#fdba74;--c28:#dc2626;--c28bg:#fff1f2;--c28bdr:#fca5a5;--c3:#7c3aed;--c3bg:#faf5ff;--c3bdr:#c4b5fd;--accent:#4f46e5;--al:#ede9fe}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(79,70,229,.06) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
+header{position:relative;z-index:10;background:var(--white);border-bottom:1px solid var(--border);padding:0 20px}
+.header-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.logo-area{display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),#818cf8);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 2px 8px rgba(79,70,229,.3)}
+.logo-text{font-size:15px;font-weight:700;color:var(--text);line-height:1.2}
+.logo-text span{display:block;font-size:10px;font-weight:500;color:var(--muted)}
+.header-badge{background:#ecfdf5;border:1px solid #6ee7b7;color:#059669;font-size:10px;font-weight:700;letter-spacing:.5px;padding:3px 10px;border-radius:100px}
+.hero{position:relative;z-index:10;text-align:center;padding:52px 20px 36px}
+.hero h1{font-size:clamp(24px,4.5vw,44px);font-weight:800;color:var(--text);line-height:1.15;margin-bottom:12px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--muted);font-size:clamp(13px,2vw,16px);max-width:520px;margin:0 auto 28px;line-height:1.6}
+.search-card{position:relative;z-index:10;max-width:700px;margin:0 auto;padding:0 16px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:18px;box-shadow:0 4px 24px rgba(79,70,229,.08),0 1px 4px rgba(0,0,0,.04)}
+.card-body{padding:28px 28px 24px}
+.search-row{display:flex;gap:10px;margin-bottom:14px}
+.search-input-wrap{flex:1;position:relative}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none;color:var(--muted)}
+input[type=text]{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px 12px 40px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;outline:none;transition:border-color .2s,box-shadow .2s}
+input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,70,229,.1);background:var(--white)}
+input[type=text]::placeholder{color:var(--light)}
+.search-btn{background:linear-gradient(135deg,var(--accent),#6366f1);color:#fff;border:none;border-radius:10px;padding:12px 22px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:transform .15s,box-shadow .2s;white-space:nowrap;box-shadow:0 2px 8px rgba(79,70,229,.3)}
+.search-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(79,70,229,.35)}
+.search-btn:active{transform:translateY(0)}
+.optional-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label.opt-label{display:block;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px}
+select,input[type=number]{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:500;outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%236b7599' d='M5 6L0 0h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:30px;cursor:pointer}
+select option{background:var(--white)}
+select:focus,input[type=number]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,70,229,.1);background:var(--white)}
+input[type=number]::placeholder{color:var(--light)}
+.err{display:none;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;padding:10px 14px;color:#dc2626;font-size:13px;margin-top:12px}
+.sugg-wrap{display:none;margin-top:10px}
+.sugg-label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px}
+.sugg-chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{background:var(--al);border:1px solid #c7d2fe;border-radius:6px;padding:4px 12px;font-size:12px;font-weight:600;color:var(--accent);cursor:pointer;transition:background .15s}
+.chip:hover{background:#ddd6fe}
+.results-outer{position:relative;z-index:10;max-width:980px;margin:0 auto;padding:0 16px;display:none}
+.results-grid{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:22px}
+.result-card{background:var(--white);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.05);animation:slideUp .3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.result-header{padding:18px 22px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.result-tag{background:var(--al);border:1px solid #c7d2fe;border-radius:100px;color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.5px;padding:3px 10px;white-space:nowrap}
+.result-product-name{font-size:14px;font-weight:700;color:var(--text);flex:1}
+.hsn-gst-row{display:flex;border-bottom:1px solid var(--border)}
+.hsn-box,.gst-box{flex:1;padding:20px 22px}
+.hsn-box{border-right:1px solid var(--border)}
+.box-label{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.hsn-value{font-family:'Space Mono',monospace;font-size:clamp(20px,3vw,28px);font-weight:700;color:var(--text);letter-spacing:1px}
+.hsn-subdesc{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}
+.gst-circle-wrap{display:flex;align-items:center;gap:14px}
+.gst-circle{width:64px;height:64px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Space Mono',monospace;flex-shrink:0;border:3px solid;transition:all .3s}
+.gst-circle .pct{font-size:18px;font-weight:700;line-height:1}
+.gst-circle .pct-unit{font-size:9px;font-weight:700;margin-top:1px}
+.gst-category{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
+.gst-note{font-size:11px;color:var(--muted)}
+.tax-split{padding:16px 22px;border-bottom:1px solid var(--border)}
+.split-label{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.split-bars{display:flex;flex-direction:column;gap:8px}
+.split-bar-row{display:flex;align-items:center;gap:10px}
+.split-name{font-size:11px;font-weight:700;color:var(--muted);width:38px;flex-shrink:0}
+.split-track{flex:1;height:8px;background:var(--bg2);border-radius:100px;overflow:hidden}
+.split-fill{height:100%;border-radius:100px;transition:width .55s cubic-bezier(.4,0,.2,1)}
+.fill-cgst{background:linear-gradient(90deg,#6366f1,#818cf8)}
+.fill-sgst{background:linear-gradient(90deg,#0ea5e9,#38bdf8)}
+.fill-igst{background:linear-gradient(90deg,#f97316,#fb923c)}
+.split-pct{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--text);width:32px;text-align:right;flex-shrink:0}
+.price-calc{padding:16px 22px}
+.price-calc-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.price-box{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.price-box.total{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border-color:#86efac}
+.price-box-label{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.price-box-val{font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:var(--text)}
+.price-box.total .price-box-val{color:#16a34a}
+.slab-panel{display:flex;flex-direction:column;gap:10px;animation:slideUp .35s ease}
+.slab-panel-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:2px 0 4px}
+.slab-card{border-radius:14px;border:2px solid;padding:14px 16px;cursor:default;transition:transform .15s,box-shadow .2s;position:relative;overflow:hidden}
+.slab-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:14px 0 0 14px}
+.slab-card:hover{transform:translateX(2px)}
+.slab-card.slab-active{transform:translateX(4px)}
+.slab-active-badge{display:none;position:absolute;right:10px;top:10px;background:var(--accent);color:#fff;font-size:9px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:2px 7px;border-radius:100px}
+.slab-card.slab-active .slab-active-badge{display:block}
+.slab-0{background:var(--c0bg);border-color:var(--c0bdr)}.slab-0::before{background:var(--c0)}.slab-0.slab-active{border-color:var(--c0);box-shadow:0 0 0 1px var(--c0),0 6px 20px rgba(100,116,139,.2)}
+.slab-3{background:var(--c3bg);border-color:var(--c3bdr)}.slab-3::before{background:var(--c3)}.slab-3.slab-active{border-color:var(--c3);box-shadow:0 0 0 1px var(--c3),0 6px 20px rgba(124,58,237,.2)}
+.slab-5{background:var(--c5bg);border-color:var(--c5bdr)}.slab-5::before{background:var(--c5)}.slab-5.slab-active{border-color:var(--c5);box-shadow:0 0 0 1px var(--c5),0 6px 20px rgba(22,163,74,.2)}
+.slab-12{background:var(--c12bg);border-color:var(--c12bdr)}.slab-12::before{background:var(--c12)}.slab-12.slab-active{border-color:var(--c12);box-shadow:0 0 0 1px var(--c12),0 6px 20px rgba(2,132,199,.2)}
+.slab-18{background:var(--c18bg);border-color:var(--c18bdr)}.slab-18::before{background:var(--c18)}.slab-18.slab-active{border-color:var(--c18);box-shadow:0 0 0 1px var(--c18),0 6px 20px rgba(234,88,12,.2)}
+.slab-28{background:var(--c28bg);border-color:var(--c28bdr)}.slab-28::before{background:var(--c28)}.slab-28.slab-active{border-color:var(--c28);box-shadow:0 0 0 1px var(--c28),0 6px 20px rgba(220,38,38,.2)}
+.slab-top{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.slab-rate{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;line-height:1}
+.slab-0 .slab-rate{color:var(--c0)}.slab-3 .slab-rate{color:var(--c3)}.slab-5 .slab-rate{color:var(--c5)}.slab-12 .slab-rate{color:var(--c12)}.slab-18 .slab-rate{color:var(--c18)}.slab-28 .slab-rate{color:var(--c28)}
+.slab-name{font-size:12px;font-weight:700}
+.slab-0 .slab-name{color:var(--c0)}.slab-3 .slab-name{color:var(--c3)}.slab-5 .slab-name{color:var(--c5)}.slab-12 .slab-name{color:var(--c12)}.slab-18 .slab-name{color:var(--c18)}.slab-28 .slab-name{color:var(--c28)}
+.slab-examples{font-size:11px;color:var(--muted);line-height:1.5}
+.slab-tax-row{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+.mini-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;font-family:'Space Mono',monospace}
+.slab-0 .mini-badge{background:rgba(100,116,139,.1);color:var(--c0)}.slab-3 .mini-badge{background:rgba(124,58,237,.1);color:var(--c3)}.slab-5 .mini-badge{background:rgba(22,163,74,.1);color:var(--c5)}.slab-12 .mini-badge{background:rgba(2,132,199,.1);color:var(--c12)}.slab-18 .mini-badge{background:rgba(234,88,12,.1);color:var(--c18)}.slab-28 .mini-badge{background:rgba(220,38,38,.1);color:var(--c28)}
+.static-slabs{position:relative;z-index:10;max-width:980px;margin:40px auto 0;padding:0 16px 60px}
+.static-title{font-size:15px;font-weight:800;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.static-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.static-slabs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.static-slab-card{border-radius:14px;border:1.5px solid;padding:16px 14px;transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden}
+.static-slab-card::after{content:'';position:absolute;width:80px;height:80px;border-radius:50%;bottom:-20px;right:-20px;opacity:.12}
+.static-slab-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.ss0{background:var(--c0bg);border-color:var(--c0bdr)}.ss0::after{background:var(--c0)}.ss0 .ss-rate{color:var(--c0)}.ss0 .ss-name{color:var(--c0)}.ss0 .ss-divider{background:rgba(100,116,139,.2)}.ss0 .ss-chip{background:rgba(100,116,139,.1);color:var(--c0)}
+.ss5{background:var(--c5bg);border-color:var(--c5bdr)}.ss5::after{background:var(--c5)}.ss5 .ss-rate{color:var(--c5)}.ss5 .ss-name{color:var(--c5)}.ss5 .ss-divider{background:rgba(22,163,74,.2)}.ss5 .ss-chip{background:rgba(22,163,74,.1);color:var(--c5)}
+.ss12{background:var(--c12bg);border-color:var(--c12bdr)}.ss12::after{background:var(--c12)}.ss12 .ss-rate{color:var(--c12)}.ss12 .ss-name{color:var(--c12)}.ss12 .ss-divider{background:rgba(2,132,199,.2)}.ss12 .ss-chip{background:rgba(2,132,199,.1);color:var(--c12)}
+.ss18{background:var(--c18bg);border-color:var(--c18bdr)}.ss18::after{background:var(--c18)}.ss18 .ss-rate{color:var(--c18)}.ss18 .ss-name{color:var(--c18)}.ss18 .ss-divider{background:rgba(234,88,12,.2)}.ss18 .ss-chip{background:rgba(234,88,12,.1);color:var(--c18)}
+.ss28{background:var(--c28bg);border-color:var(--c28bdr)}.ss28::after{background:var(--c28)}.ss28 .ss-rate{color:var(--c28)}.ss28 .ss-name{color:var(--c28)}.ss28 .ss-divider{background:rgba(220,38,38,.2)}.ss28 .ss-chip{background:rgba(220,38,38,.1);color:var(--c28)}
+.ss-rate{font-family:'Space Mono',monospace;font-size:28px;font-weight:700;line-height:1;margin-bottom:4px}
+.ss-name{font-size:12px;font-weight:700;margin-bottom:8px}
+.ss-divider{height:1px;margin-bottom:8px}
+.ss-examples{font-size:11px;color:var(--muted);line-height:1.6}
+.ss-split{margin-top:10px;display:flex;gap:5px;flex-wrap:wrap}
+.ss-chip{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;font-family:'Space Mono',monospace}
+.info-section{position:relative;z-index:10;max-width:980px;margin:0 auto;padding:32px 16px 0}
+.info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
+.info-tile{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 18px;transition:transform .2s}
+.info-tile:hover{transform:translateY(-2px)}
+.info-tile-icon{font-size:20px;margin-bottom:8px}
+.info-tile h3{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px}
+.info-tile p{font-size:11px;color:var(--muted);line-height:1.5}
+footer{position:relative;z-index:10;text-align:center;padding:20px 20px 32px;color:var(--muted);font-size:11px;border-top:1px solid var(--border);max-width:980px;margin:0 auto}
+footer strong{color:var(--text)}
+@media(max-width:860px){.results-grid{grid-template-columns:1fr}.slab-panel{flex-direction:row;flex-wrap:wrap;gap:8px}.slab-panel-title{width:100%;margin-bottom:0}.slab-card{flex:1;min-width:130px}.static-slabs-grid{grid-template-columns:repeat(3,1fr)}.info-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.hero{padding:36px 16px 24px}.card-body{padding:18px 16px 16px}.search-row{flex-direction:column}.search-btn{width:100%}.optional-row{grid-template-columns:1fr}.hsn-gst-row{flex-direction:column}.hsn-box{border-right:none;border-bottom:1px solid var(--border)}.price-calc-row{grid-template-columns:1fr}.static-slabs-grid{grid-template-columns:repeat(2,1fr)}.info-grid{grid-template-columns:repeat(2,1fr)}.header-inner{height:52px}.header-badge{display:none}.slab-card{min-width:calc(50% - 4px)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-icon">🇮🇳</div>
+      <div class="logo-text">HSN Finder <span>GST Rate Calculator · India 2025–26</span></div>
+    </div>
+    <div class="header-badge">✓ Free Tool</div>
+  </div>
+</header>
+<div class="hero">
+  <h1>Find <em>HSN Code</em> &amp;<br>GST Rate Instantly</h1>
+  <p>Search any product → get correct HSN Code, GST slab, tax breakdown &amp; price calculation. For Indian traders, MSMEs &amp; CAs.</p>
+</div>
+<div class="search-card">
+  <div class="card">
+    <div class="card-body">
+      <form id="hsnForm" autocomplete="off">
+        <div class="search-row">
+          <div class="search-input-wrap">
+            <span class="search-icon">🔎</span>
+            <input type="text" id="productInput" placeholder="Type product — e.g. LED bulb, shirt, cashew, soap, laptop…">
+          </div>
+          <button type="submit" class="search-btn">Find HSN &amp; GST</button>
+        </div>
+        <div class="optional-row">
+          <div>
+            <label class="opt-label" for="transactionType">Transaction Type</label>
+            <select id="transactionType">
+              <option value="intra">🏙 Intra-State (CGST + SGST)</option>
+              <option value="inter">🛣 Inter-State (IGST)</option>
+            </select>
+          </div>
+          <div>
+            <label class="opt-label" for="priceInput">Product Price (₹) — optional</label>
+            <input type="number" id="priceInput" placeholder="e.g. 1500" min="0" step="0.01">
+          </div>
+        </div>
+        <div class="err" id="errMsg"></div>
+        <div class="sugg-wrap" id="suggWrap">
+          <div class="sugg-label">Did you mean?</div>
+          <div class="sugg-chips" id="suggChips"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="results-outer" id="resultsOuter">
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="result-header">
+        <div class="result-tag">MATCH FOUND</div>
+        <div class="result-product-name" id="matchedName">—</div>
+      </div>
+      <div class="hsn-gst-row">
+        <div class="hsn-box">
+          <div class="box-label">HSN Code</div>
+          <div class="hsn-value" id="hsnCode">—</div>
+          <div class="hsn-subdesc" id="hsnDesc"></div>
+        </div>
+        <div class="gst-box">
+          <div class="box-label">GST Rate</div>
+          <div class="gst-circle-wrap">
+            <div class="gst-circle" id="gstCircle">
+              <span class="pct" id="gstPct">—</span>
+              <span class="pct-unit">%</span>
+            </div>
+            <div class="gst-meta">
+              <div class="gst-category" id="gstCategory">—</div>
+              <div class="gst-note" id="gstNote"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tax-split">
+        <div class="split-label">Tax Split</div>
+        <div class="split-bars">
+          <div class="split-bar-row"><span class="split-name">CGST</span><div class="split-track"><div class="split-fill fill-cgst" id="cgstBar" style="width:0%"></div></div><span class="split-pct" id="cgstPct">0%</span></div>
+          <div class="split-bar-row"><span class="split-name">SGST</span><div class="split-track"><div class="split-fill fill-sgst" id="sgstBar" style="width:0%"></div></div><span class="split-pct" id="sgstPct">0%</span></div>
+          <div class="split-bar-row"><span class="split-name">IGST</span><div class="split-track"><div class="split-fill fill-igst" id="igstBar" style="width:0%"></div></div><span class="split-pct" id="igstPct">0%</span></div>
+        </div>
+      </div>
+      <div class="price-calc">
+        <div class="price-calc-row">
+          <div class="price-box"><div class="price-box-label">GST Amount</div><div class="price-box-val" id="gstAmt">—</div></div>
+          <div class="price-box total"><div class="price-box-label">Final Price (incl. GST)</div><div class="price-box-val" id="finalPrice">—</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="slab-panel" id="slabPanel">
+      <div class="slab-panel-title">GST Slabs — your match highlighted</div>
+    </div>
+  </div>
+</div>
+<div class="info-section">
+  <div class="info-grid">
+    <div class="info-tile"><div class="info-tile-icon">📦</div><h3>100+ Products</h3><p>Electronics, food, clothing, pharma, construction &amp; more</p></div>
+    <div class="info-tile"><div class="info-tile-icon">⚡</div><h3>Instant Lookup</h3><p>Zero server calls — fully client-side, works offline</p></div>
+    <div class="info-tile"><div class="info-tile-icon">🧮</div><h3>Auto Tax Split</h3><p>CGST/SGST for intra-state, IGST for inter-state — automatic</p></div>
+    <div class="info-tile"><div class="info-tile-icon">📋</div><h3>India 2025–26</h3><p>Latest official GST rate notifications</p></div>
+  </div>
+</div>
+<div class="static-slabs">
+  <div class="static-title">GST Rate Slabs — Quick Reference</div>
+  <div class="static-slabs-grid">
+    <div class="static-slab-card ss0"><div class="ss-rate">0%</div><div class="ss-name">Exempt / Nil</div><div class="ss-divider"></div><div class="ss-examples">Fresh vegetables, milk, eggs, rice, wheat, books, salt, newspapers</div><div class="ss-split"><span class="ss-chip">CGST 0%</span><span class="ss-chip">SGST 0%</span><span class="ss-chip">IGST 0%</span></div></div>
+    <div class="static-slab-card ss5"><div class="ss-rate">5%</div><div class="ss-name">Essential Goods</div><div class="ss-divider"></div><div class="ss-examples">Sugar, tea, coffee, spices, cashew, almonds, apparel ≤₹1000, footwear ≤₹500</div><div class="ss-split"><span class="ss-chip">CGST 2.5%</span><span class="ss-chip">SGST 2.5%</span><span class="ss-chip">IGST 5%</span></div></div>
+    <div class="static-slab-card ss12"><div class="ss-rate">12%</div><div class="ss-name">Standard Goods</div><div class="ss-divider"></div><div class="ss-examples">Mobile phones, LED bulbs, medicines, frozen meat, bicycles, steel utensils</div><div class="ss-split"><span class="ss-chip">CGST 6%</span><span class="ss-chip">SGST 6%</span><span class="ss-chip">IGST 12%</span></div></div>
+    <div class="static-slab-card ss18"><div class="ss-rate">18%</div><div class="ss-name">Standard Rate</div><div class="ss-divider"></div><div class="ss-examples">Laptops, soaps, paint, toothpaste, restaurant (AC), most manufactured goods</div><div class="ss-split"><span class="ss-chip">CGST 9%</span><span class="ss-chip">SGST 9%</span><span class="ss-chip">IGST 18%</span></div></div>
+    <div class="static-slab-card ss28"><div class="ss-rate">28%</div><div class="ss-name">Luxury / Demerit</div><div class="ss-divider"></div><div class="ss-examples">Cars, ACs, cigarettes, cement, aerated drinks, casinos, luxury hotels</div><div class="ss-split"><span class="ss-chip">CGST 14%</span><span class="ss-chip">SGST 14%</span><span class="ss-chip">IGST 28%</span></div></div>
+  </div>
+</div>
+<footer><strong>HSN Finder & GST Calculator</strong> · Free tool for traders, MSMEs &amp; CAs · India 2025–26<br>Data based on official GST rate notifications. Always verify with a CA/accountant for compliance.</footer>
+<script>
+const hsnData=[
+  {hsn:"85171211",description:"Mobile phones / smartphones",keywords:["mobile","smartphone","cellphone","phone","iphone","android"],gst_rate:12},
+  {hsn:"84713010",description:"Laptops / notebook computers",keywords:["laptop","notebook","macbook","chromebook"],gst_rate:18},
+  {hsn:"84143010",description:"Ceiling / table / pedestal fan",keywords:["fan","ceiling fan","table fan","pedestal fan","wall fan"],gst_rate:18},
+  {hsn:"84501110",description:"Washing machine",keywords:["washing machine","washer","laundry"],gst_rate:18},
+  {hsn:"84151010",description:"Air conditioner / AC",keywords:["air conditioner","ac","air conditioning","split ac","window ac"],gst_rate:28},
+  {hsn:"84181010",description:"Refrigerator / fridge",keywords:["refrigerator","fridge","freezer"],gst_rate:28},
+  {hsn:"85163100",description:"Hair dryer",keywords:["hair dryer","hairdryer","blow dryer"],gst_rate:18},
+  {hsn:"85164000",description:"Electric iron",keywords:["electric iron","clothes iron","press"],gst_rate:18},
+  {hsn:"85094000",description:"Mixer grinder / food processor",keywords:["mixer","grinder","mixer grinder","food processor","blender","juicer"],gst_rate:18},
+  {hsn:"85287200",description:"LED television / smart TV",keywords:["tv","television","smart tv","led tv","oled","qled"],gst_rate:28},
+  {hsn:"85299090",description:"Set-top box / DTH",keywords:["set top box","dth","dish tv","tata sky","settop"],gst_rate:18},
+  {hsn:"84433210",description:"Printer",keywords:["printer","laser printer","inkjet","hp printer"],gst_rate:18},
+  {hsn:"85044010",description:"Phone charger / adaptor",keywords:["charger","adaptor","adapter","phone charger"],gst_rate:18},
+  {hsn:"85065000",description:"Lithium-ion battery / power bank",keywords:["battery","lithium battery","power bank","li-ion"],gst_rate:18},
+  {hsn:"85291020",description:"CCTV / security camera",keywords:["cctv","security camera","surveillance","ip camera"],gst_rate:18},
+  {hsn:"84715000",description:"Desktop computer / server",keywords:["desktop","computer","pc","server"],gst_rate:18},
+  {hsn:"84716000",description:"Keyboard / mouse",keywords:["keyboard","mouse","computer mouse"],gst_rate:18},
+  {hsn:"84717010",description:"Hard disk / SSD / USB drive",keywords:["hard disk","hdd","ssd","pen drive","usb drive"],gst_rate:18},
+  {hsn:"85044011",description:"UPS / home inverter",keywords:["ups","inverter","power backup","home inverter"],gst_rate:18},
+  {hsn:"85030010",description:"Electric motor / generator",keywords:["motor","generator","electric motor","genset"],gst_rate:18},
+  {hsn:"94051010",description:"LED bulbs and lamps",keywords:["led","led bulb","led lamp","bulb","light bulb"],gst_rate:12},
+  {hsn:"94054010",description:"Tubelight / fluorescent lamp",keywords:["tubelight","tube light","fluorescent","cfl"],gst_rate:12},
+  {hsn:"94051090",description:"Chandeliers / decorative lamps",keywords:["chandelier","lamp","light fixture","pendant light","lighting"],gst_rate:18},
+  {hsn:"07019000",description:"Fresh potatoes",keywords:["potato","aloo","potatoes"],gst_rate:0},
+  {hsn:"07031000",description:"Onion / shallots",keywords:["onion","pyaz","shallot"],gst_rate:0},
+  {hsn:"07092000",description:"Fresh vegetables",keywords:["vegetable","sabji","veggies","brinjal","tomato","carrot","spinach"],gst_rate:0},
+  {hsn:"08051000",description:"Fresh oranges / citrus fruit",keywords:["orange","santra","mosambi","sweet lime","lemon"],gst_rate:0},
+  {hsn:"08061000",description:"Fresh grapes",keywords:["grape","grapes","angur"],gst_rate:0},
+  {hsn:"04012000",description:"Milk and fresh cream",keywords:["milk","cream","dairy","doodh"],gst_rate:0},
+  {hsn:"04070011",description:"Eggs",keywords:["egg","eggs","anda"],gst_rate:0},
+  {hsn:"10063020",description:"Rice (non-basmati / basmati)",keywords:["rice","chawal","basmati"],gst_rate:0},
+  {hsn:"11010000",description:"Wheat flour / atta",keywords:["wheat","atta","flour","maida"],gst_rate:0},
+  {hsn:"11031100",description:"Semolina / suji / rava",keywords:["semolina","suji","rava","sooji"],gst_rate:0},
+  {hsn:"02011000",description:"Fresh meat (beef/mutton/lamb)",keywords:["meat","beef","buffalo","mutton","lamb"],gst_rate:0},
+  {hsn:"03019100",description:"Fresh / chilled fish",keywords:["fish","machli","seafood","salmon","tuna"],gst_rate:0},
+  {hsn:"96190010",description:"Sanitary napkins / menstrual pads",keywords:["sanitary napkin","sanitary pad","pad","menstrual","whisper","stayfree"],gst_rate:0},
+  {hsn:"49011010",description:"Books / printed textbooks",keywords:["book","textbook","novel","printed book","ncert"],gst_rate:0},
+  {hsn:"27101290",description:"Petrol / diesel (for vehicles)",keywords:["petrol","diesel","fuel","gasoline"],gst_rate:0},
+  {hsn:"04021000",description:"Milk powder",keywords:["milk powder","skimmed milk","dried milk"],gst_rate:5},
+  {hsn:"17011200",description:"Sugar / cane sugar",keywords:["sugar","shakkar","cane sugar"],gst_rate:5},
+  {hsn:"09021000",description:"Tea / green tea / black tea",keywords:["tea","chai","green tea","black tea"],gst_rate:5},
+  {hsn:"09011100",description:"Coffee / coffee beans",keywords:["coffee","coffee beans"],gst_rate:5},
+  {hsn:"09041110",description:"Black / white pepper",keywords:["pepper","black pepper","kali mirch"],gst_rate:5},
+  {hsn:"09071000",description:"Cloves / laung",keywords:["cloves","laung"],gst_rate:5},
+  {hsn:"09031010",description:"Turmeric / haldi",keywords:["turmeric","haldi"],gst_rate:5},
+  {hsn:"09041210",description:"Red chilli / chilli powder",keywords:["chilli","red chilli","chilli powder","mirch"],gst_rate:5},
+  {hsn:"09024090",description:"Masala / spice mix",keywords:["masala","spice mix","garam masala","curry powder"],gst_rate:5},
+  {hsn:"08011200",description:"Cashew nuts",keywords:["cashew","kaju"],gst_rate:5},
+  {hsn:"08021100",description:"Almonds",keywords:["almond","badam"],gst_rate:5},
+  {hsn:"08023100",description:"Walnuts",keywords:["walnut","akhrot"],gst_rate:5},
+  {hsn:"08025000",description:"Pistachios",keywords:["pistachio","pista"],gst_rate:5},
+  {hsn:"08132000",description:"Raisins / dried prunes",keywords:["raisin","kishmish","dry grape","prune"],gst_rate:5},
+  {hsn:"27111100",description:"LPG / cooking gas cylinder",keywords:["lpg","gas cylinder","cooking gas"],gst_rate:5},
+  {hsn:"61091000",description:"T-shirts / tops (cotton)",keywords:["tshirt","t-shirt","top"],gst_rate:5},
+  {hsn:"61034200",description:"Jeans / trousers / pants",keywords:["jeans","trousers","pants","denim"],gst_rate:5},
+  {hsn:"61091010",description:"Cotton fabric / cloth",keywords:["cotton","fabric","cloth","cotton fabric"],gst_rate:5},
+  {hsn:"62099000",description:"Saree / kurta / ethnic wear",keywords:["saree","sari","lehenga","kurta","salwar","ethnic"],gst_rate:5},
+  {hsn:"04061000",description:"Paneer / cheese",keywords:["paneer","cheese","curd","yogurt","dahi"],gst_rate:12},
+  {hsn:"20052000",description:"Frozen chips / potato fries",keywords:["chips","frozen fries","french fries"],gst_rate:12},
+  {hsn:"30049011",description:"Medicines / pharmaceutical tablets",keywords:["medicine","tablet","capsule","syrup","drug","paracetamol","aspirin"],gst_rate:12},
+  {hsn:"30051010",description:"Bandages / wound dressings",keywords:["bandage","dressing","plaster","wound dressing"],gst_rate:12},
+  {hsn:"90181900",description:"Medical devices / BP machine",keywords:["medical device","stethoscope","glucometer","thermometer","bp machine"],gst_rate:12},
+  {hsn:"48202000",description:"Notebooks / exercise books",keywords:["notebook","exercise book","diary","notepad","register"],gst_rate:12},
+  {hsn:"96083000",description:"Pencil / crayon",keywords:["pencil","crayon"],gst_rate:12},
+  {hsn:"73239400",description:"Steel utensils / cookware",keywords:["utensil","steel utensil","cookware","kadai","pot","pan","steel"],gst_rate:12},
+  {hsn:"69111000",description:"Ceramic / porcelain crockery",keywords:["ceramic","porcelain","crockery","plate","bowl","cup"],gst_rate:12},
+  {hsn:"87159000",description:"Bicycle / cycle",keywords:["bicycle","cycle","bike cycle"],gst_rate:12},
+  {hsn:"84521011",description:"Sewing machine",keywords:["sewing machine","stitching machine"],gst_rate:12},
+  {hsn:"61052000",description:"Formal shirts (polyester)",keywords:["shirt","formal shirt","polyester shirt"],gst_rate:12},
+  {hsn:"61013000",description:"Jacket / blazer / coat",keywords:["jacket","coat","blazer","overcoat"],gst_rate:12},
+  {hsn:"63012000",description:"Woollen blanket / quilt",keywords:["blanket","woollen blanket","quilt"],gst_rate:12},
+  {hsn:"95030010",description:"Toys / plastic toys / dolls",keywords:["toy","toys","plastic toy","doll","action figure"],gst_rate:12},
+  {hsn:"95066200",description:"Cricket / football / tennis ball",keywords:["ball","cricket ball","football","tennis ball"],gst_rate:12},
+  {hsn:"48119010",description:"Paper / A4 paper",keywords:["paper","newspaper","printing paper","a4 paper"],gst_rate:12},
+  {hsn:"17049000",description:"Chocolates / confectionery",keywords:["chocolate","candy","confectionery","toffee"],gst_rate:18},
+  {hsn:"22011000",description:"Mineral / packaged drinking water",keywords:["mineral water","packaged water","bottled water","water bottle"],gst_rate:18},
+  {hsn:"33051000",description:"Shampoo / hair conditioner",keywords:["shampoo","conditioner","hair shampoo"],gst_rate:18},
+  {hsn:"34010000",description:"Bathing / toilet soap",keywords:["soap","bathing soap","toilet soap","bath soap"],gst_rate:18},
+  {hsn:"33061010",description:"Toothpaste / mouthwash",keywords:["toothpaste","mouthwash","dental"],gst_rate:18},
+  {hsn:"96032100",description:"Toothbrush",keywords:["toothbrush","brush"],gst_rate:18},
+  {hsn:"33029000",description:"Perfume / deodorant",keywords:["perfume","deodorant","deo","cologne","fragrance","attar"],gst_rate:18},
+  {hsn:"33049900",description:"Sunscreen / sunblock lotion",keywords:["sunscreen","sunblock","spf","lotion"],gst_rate:18},
+  {hsn:"64041100",description:"Sports shoes / footwear",keywords:["shoes","footwear","sneakers","sandals","slippers","chappals"],gst_rate:18},
+  {hsn:"94013000",description:"Sofa / couch",keywords:["sofa","couch","settee","sofa set"],gst_rate:18},
+  {hsn:"94016100",description:"Wooden chairs / office chair",keywords:["chair","wooden chair","office chair","stool"],gst_rate:18},
+  {hsn:"94033000",description:"Wooden table / dining table",keywords:["table","desk","wooden table","dining table","study table"],gst_rate:18},
+  {hsn:"73211100",description:"Gas stove / cooking range",keywords:["gas stove","cooking range","lpg stove","burner","chulha"],gst_rate:18},
+  {hsn:"39249000",description:"Plastic household items",keywords:["plastic","container","plastic box","tub","mug","bucket"],gst_rate:18},
+  {hsn:"42029200",description:"Bags / handbags / luggage",keywords:["bag","handbag","purse","backpack","suitcase","luggage","briefcase"],gst_rate:18},
+  {hsn:"62101000",description:"Baby diapers / nappies",keywords:["diaper","nappy","baby diaper","pampers"],gst_rate:18},
+  {hsn:"72104100",description:"Steel / iron bars / TMT rods",keywords:["steel","iron","rebar","rod","tmt bar","steel bar"],gst_rate:18},
+  {hsn:"39173100",description:"PVC pipes / plumbing pipe",keywords:["pvc pipe","pipe","plumbing pipe"],gst_rate:18},
+  {hsn:"38140000",description:"Paints / varnishes",keywords:["paint","varnish","coating","wall paint","enamel"],gst_rate:18},
+  {hsn:"84248990",description:"Water pump / motor pump",keywords:["water pump","pump","submersible pump","motor pump"],gst_rate:18},
+  {hsn:"34031100",description:"Lubricating oil / engine oil",keywords:["lubricant","oil","grease","engine oil","mobil oil"],gst_rate:18},
+  {hsn:"38241000",description:"Adhesive / glue / fevicol",keywords:["adhesive","glue","fevicol","super glue","epoxy"],gst_rate:18},
+  {hsn:"73261900",description:"Locks / padlocks",keywords:["lock","padlock","door lock"],gst_rate:18},
+  {hsn:"96081010",description:"Ballpoint pen / gel pen",keywords:["pen","ballpoint","ballpen","gel pen"],gst_rate:18},
+  {hsn:"90202000",description:"Gym equipment / treadmill / dumbbell",keywords:["gym","treadmill","dumbbell","barbell","fitness equipment","exercise"],gst_rate:18},
+  {hsn:"33041000",description:"Lipstick / lip balm",keywords:["lipstick","lip balm","lip gloss"],gst_rate:28},
+  {hsn:"33042000",description:"Eye makeup / foundation / kajal",keywords:["makeup","eye shadow","mascara","foundation","kajal","kohl"],gst_rate:28},
+  {hsn:"22021000",description:"Aerated cold drinks / soft drinks",keywords:["cold drink","soft drink","soda","cola","pepsi","coke","sprite","aerated"],gst_rate:28},
+  {hsn:"87032290",description:"Small petrol car (sedan/hatchback)",keywords:["car","sedan","hatchback","petrol car","maruti","swift"],gst_rate:28},
+  {hsn:"87112019",description:"Motorcycle / scooter / bike",keywords:["bike","motorcycle","two-wheeler","scooter","scooty","activa"],gst_rate:28},
+  {hsn:"87089900",description:"Car accessories / auto parts",keywords:["auto parts","car accessories","spare parts","car part"],gst_rate:28},
+  {hsn:"40113000",description:"Tyres (motorcycle/bicycle)",keywords:["tyre","tire","rubber tyre","motorcycle tyre"],gst_rate:28},
+  {hsn:"25231000",description:"Cement",keywords:["cement","concrete"],gst_rate:28},
+  {hsn:"68022100",description:"Marble / granite / floor tiles",keywords:["marble","granite","stone","tile","floor tile"],gst_rate:28},
+  {hsn:"24022010",description:"Cigarettes",keywords:["cigarette","bidi","smoking","tobacco cigarette"],gst_rate:28},
+  {hsn:"24039900",description:"Pan masala / gutka / chewing tobacco",keywords:["pan masala","gutka","tobacco","chewing tobacco","zarda"],gst_rate:28},
+  {hsn:"71131100",description:"Gold jewellery / ornaments",keywords:["gold","jewellery","jewelry","gold jewellery","ring","necklace","bracelet","earring"],gst_rate:3},
+  {hsn:"71141100",description:"Silver jewellery / articles",keywords:["silver","silver jewellery","chandi"],gst_rate:3},
+];
+const slabDefs=[
+  {rate:0, label:"Exempt / Nil",    cls:"slab-0",  color:"#64748b",note:"No tax applied",           examples:"Rice, milk, eggs, vegetables, books"},
+  {rate:3, label:"Special Rate",    cls:"slab-3",  color:"#7c3aed",note:"Precious metals",           examples:"Gold jewellery, silver ornaments"},
+  {rate:5, label:"Essential Goods", cls:"slab-5",  color:"#16a34a",note:"Daily-use necessities",     examples:"Sugar, tea, spices, cashew, LPG gas"},
+  {rate:12,label:"Standard Goods",  cls:"slab-12", color:"#0284c7",note:"Moderate-use items",        examples:"Mobile phones, LED bulbs, medicines"},
+  {rate:18,label:"Standard Rate",   cls:"slab-18", color:"#ea580c",note:"Most common slab",          examples:"Laptops, soap, paint, shoes"},
+  {rate:28,label:"Luxury / Demerit",cls:"slab-28", color:"#dc2626",note:"Luxury & sin goods",        examples:"Cars, cement, cigarettes, cold drinks"},
+];
+function getSlabDef(r){return slabDefs.find(s=>s.rate===r)||slabDefs[0]}
+function findMatchingHSN(input){
+  const lower=input.toLowerCase().trim();
+  for(const entry of hsnData){for(const kw of entry.keywords){if(lower.includes(kw)||kw.includes(lower))return entry;}}
+  return null;
+}
+function findSuggestions(input){
+  const lower=input.toLowerCase().trim();const words=lower.split(/\s+/);const results=[];
+  for(const entry of hsnData){for(const kw of entry.keywords){for(const word of words){if(word.length>=3&&(kw.includes(word)||word.includes(kw.substring(0,3)))){if(!results.find(r=>r.hsn===entry.hsn))results.push(entry);}}}if(results.length>=6)break;}
+  return results;
+}
+function fmt(num){return '₹'+new Intl.NumberFormat('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}).format(num);}
+function buildSlabPanel(matchedRate){
+  const panel=document.getElementById('slabPanel');
+  panel.innerHTML='<div class="slab-panel-title">GST Slabs — your match is highlighted ↓</div>';
+  const txnType=document.getElementById('transactionType').value;
+  slabDefs.forEach(slab=>{
+    const isMatch=slab.rate===matchedRate;
+    const card=document.createElement('div');
+    card.className='slab-card '+slab.cls+(isMatch?' slab-active':'');
+    const split=txnType==='intra'?`CGST ${slab.rate/2}% + SGST ${slab.rate/2}%`:`IGST ${slab.rate}%`;
+    card.innerHTML=`<div class="slab-active-badge">✓ YOUR MATCH</div><div class="slab-top"><div class="slab-rate">${slab.rate}%</div><div class="slab-name">${slab.label}</div></div><div class="slab-examples">${slab.examples}</div><div class="slab-tax-row"><span class="mini-badge">${split}</span></div>`;
+    panel.appendChild(card);
+  });
+}
+function showResult(entry){
+  const gstRate=entry.gst_rate;
+  const txnType=document.getElementById('transactionType').value;
+  const price=parseFloat(document.getElementById('priceInput').value)||0;
+  const slab=getSlabDef(gstRate);
+  let cgst=0,sgst=0,igst=0;
+  if(txnType==='intra'){cgst=gstRate/2;sgst=gstRate/2;}else{igst=gstRate;}
+  const gstAmount=price*gstRate/100;const finalPrice=price+gstAmount;
+  document.getElementById('matchedName').textContent=entry.description;
+  document.getElementById('hsnCode').textContent=entry.hsn;
+  document.getElementById('hsnDesc').textContent=entry.description;
+  document.getElementById('gstPct').textContent=gstRate;
+  document.getElementById('gstCategory').textContent=slab.label;
+  document.getElementById('gstNote').textContent=slab.note;
+  const circle=document.getElementById('gstCircle');
+  circle.style.borderColor=slab.color;circle.style.color=slab.color;circle.style.background=slab.color+'14';
+  document.getElementById('cgstPct').textContent=cgst+'%';
+  document.getElementById('sgstPct').textContent=sgst+'%';
+  document.getElementById('igstPct').textContent=igst+'%';
+  const maxRate=28;
+  setTimeout(()=>{
+    document.getElementById('cgstBar').style.width=(cgst/maxRate*100)+'%';
+    document.getElementById('sgstBar').style.width=(sgst/maxRate*100)+'%';
+    document.getElementById('igstBar').style.width=(igst/maxRate*100)+'%';
+  },80);
+  document.getElementById('gstAmt').textContent=price>0?fmt(gstAmount):'—';
+  document.getElementById('finalPrice').textContent=price>0?fmt(finalPrice):'—';
+  buildSlabPanel(gstRate);
+  const outer=document.getElementById('resultsOuter');outer.style.display='block';
+  setTimeout(()=>outer.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
+function showErr(msg){const el=document.getElementById('errMsg');el.textContent=msg;el.style.display='block';}
+function clearAll(){document.getElementById('errMsg').style.display='none';document.getElementById('suggWrap').style.display='none';document.getElementById('suggChips').innerHTML='';}
+document.getElementById('hsnForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const val=document.getElementById('productInput').value.trim();
+  clearAll();document.getElementById('resultsOuter').style.display='none';
+  ['cgstBar','sgstBar','igstBar'].forEach(id=>document.getElementById(id).style.width='0%');
+  if(!val){showErr('⚠ Please enter a product name.');return;}
+  const match=findMatchingHSN(val);
+  if(match){showResult(match);}
+  else{
+    const sugg=findSuggestions(val);
+    if(sugg.length){
+      showErr('No exact match found. Try one of these suggestions:');
+      const wrap=document.getElementById('suggWrap');const chips=document.getElementById('suggChips');wrap.style.display='block';
+      sugg.forEach(s=>{const chip=document.createElement('div');chip.className='chip';chip.textContent=s.description;chip.addEventListener('click',()=>{document.getElementById('productInput').value=s.keywords[0];clearAll();document.getElementById('resultsOuter').style.display='none';['cgstBar','sgstBar','igstBar'].forEach(id=>document.getElementById(id).style.width='0%');showResult(s);});chips.appendChild(chip);});
+    }else{showErr('No match found. Try a broader term like "plastic", "food", "electronic".');}
+  }
+});
+</script>
+</body>
+</html>
